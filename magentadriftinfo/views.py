@@ -1,21 +1,31 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
 from django.views.generic import View
 from django.views.generic.base import TemplateResponseMixin
 from django.db.models import Q
+from django.views import generic
 
-from .models import Event
-
-
-def index(request):
-    events = Event.objects.all()
-    return render(request, 'magentadriftinfo/index.html', {'events', events})
+from .models import Event, Customer, System, Server
 
 
-class IndexView(TemplateResponseMixin, View):
-    template_name = 'magentadriftinfo/index.html'
+class CustomerIndexView(generic.ListView):
+    model = Customer
+    template_name = 'magentadriftinfo/customer_index.html'
+    context_object_name = 'customers'
+
+
+class SystemIndexView(generic.ListView):
+    model = System
+    template_name = 'magentadriftinfo/system_index.html'
+    context_object_name = 'systems'
+
+
+class ServerIndexView(generic.ListView):
+    model = Server
+    template_name = 'magentadriftinfo/server_index.html'
+    context_object_name = 'servers'
+
+
+class DetailView(TemplateResponseMixin, View):
+    template_name = 'magentadriftinfo/detail.html'
     model = Event
     ordering = '-startTime'
 

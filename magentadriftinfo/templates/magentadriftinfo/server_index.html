@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>server index</title>
+</head>
+<body>
+{% if servers %}
+    <ul>
+        {% for server in servers %}
+            <li><a href="{% url 'magentadriftinfo:server' server.name %}">{{ server.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No servers registered.</p>
+{% endif %}
+</body>
+</html>

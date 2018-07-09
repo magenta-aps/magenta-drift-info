@@ -11,6 +11,10 @@
                     <td style="">{{ object.startTime|date:'d/m-Y \k\l. H:i' }}</td>
                 </tr>
                 <tr>
+                    <td style="">Sluttidspunkt:</td>
+                    <td style="">{{ object.endTime|date:'d/m-Y \k\l. H:i' }}</td>
+                </tr>
+                <tr>
                     <td style="">{% blocktrans count c=object.systems.count %}System:{% plural %}Systemer:{% endblocktrans %}</td>
                     <td style="">
                         {% if object.systems.all %}
@@ -40,7 +44,15 @@
                 </tr>
                 <tr>
                     <td style="" valign="top">Beskrivelse:</td>
-                    <td style=""><p><strong>{{ object.description }}</strong></p></td>
+                    <td style=""><p>{{ object.description }}</p></td>
+                </tr>
+                <tr>
+                    <td style="" valign="top">Niveau:</td>
+                    <td style=""><p>{{ object.get_level_display }}</p></td>
+                </tr>
+                <tr>
+                    <td style="">Sidst opdateret:</td>
+                    <td style="">{{ object.endTime|date:'d/m-Y \k\l. H:i' }}</td>
                 </tr>
                 </tbody>
                 </table>

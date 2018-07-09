@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System index</title>
+</head>
+<body>
+{% if systems %}
+    <ul>
+        {% for system in systems %}
+            <li><a href="{% url 'magentadriftinfo:system' system.name %}">{{ system.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No systems registered.</p>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer index</title>
+</head>
+{% if customers %}
+    <ul>
+        {% for customer in customers %}
+            <li><a href="{% url 'magentadriftinfo:customer' customer.name %}">{{ customer.name }}</a></li>
+            <p>
+                Servers:
+                {% for server in customer.server_set.all %}
+                    <a href="{% url 'magentadriftinfo:server' server.name %}">
+                        {{ server.name }}</a>{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            </p>
+            <p>
+                Systems:
+                {% for system in customer.system_set.all %}
+                    <a href="{% url 'magentadriftinfo:system' system.name %}">
+                        {{ system.name }}</a>{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            </p>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No customers registered.</p>
+{% endif %}
+<body>
+
+</body>
+</html>
