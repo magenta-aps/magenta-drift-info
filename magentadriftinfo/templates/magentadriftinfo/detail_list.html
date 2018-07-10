@@ -79,69 +79,6 @@
             </div>
         {% endfor %}
     </div>
-
-
-<!--
-    <ul>
-        {% for object in qs %}
-            <li>
-                {{ object.title }}
-                <table class="list" style="display: block;" id="4079" border="0"><tbody>
-                <tr>
-                    <td style="">Starttidspunkt:</td>
-                    <td style="">{{ object.startTime|date:'d/m-Y \k\l. H:i' }}</td>
-                </tr>
-                <tr>
-                    <td style="">Sluttidspunkt:</td>
-                    <td style="">{{ object.endTime|date:'d/m-Y \k\l. H:i' }}</td>
-                </tr>
-                <tr>
-                    <td style="">{% blocktrans count c=object.systems.count %}System:{% plural %}Systemer:{% endblocktrans %}</td>
-                    <td style="">
-                        {% if object.systems.all %}
-                            {% for system in object.systems.all %}
-                                {{ system.name }}{% if not forloop.last %},{% endif %}
-                            {% endfor %}
-                        {% else %}
-                            Ikke specificeret
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td style="">{% blocktrans count c=object.servers.count %}Server:{% plural %}Servere:{% endblocktrans %}</td>
-                    <td style="">
-                        {% if object.servers.all %}
-                            {% for server in object.servers.all %}
-                                {{ server.name }}{% if not forloop.last %},{% endif %}
-                            {% endfor %}
-                        {% else %}
-                            Ikke specificeret
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td style="">Overskrift:</td>
-                    <td style="">{{ object.title }}</td>
-                </tr>
-                <tr>
-                    <td style="" valign="top">Beskrivelse:</td>
-                    <td style=""><p>{{ object.description }}</p></td>
-                </tr>
-                <tr>
-                    <td style="" valign="top">Niveau:</td>
-                    <td style=""><p>{{ object.get_level_display }}</p></td>
-                </tr>
-                <tr>
-                    <td style="">Sidst opdateret:</td>
-                    <td style="">{{ object.endTime|date:'d/m-Y \k\l. H:i' }}</td>
-                </tr>
-                </tbody>
-                </table>
-            </li>
-        {% endfor %}
-    </ul>
--->
-
 {% else %}
     <p>Ingen driftforstyrrelser at vise.</p>
 {% endif %}

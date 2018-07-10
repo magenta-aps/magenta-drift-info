@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>server index</title>
-</head>
-<body>
+{% extends 'magentadriftinfo/base.html' %}
+
+{% block content %}
 {% if servers %}
     <ul>
         {% for server in servers %}
@@ -14,5 +10,4 @@
 {% else %}
     <p>No servers registered.</p>
 {% endif %}
-</body>
-</html>
+{% endblock %}
