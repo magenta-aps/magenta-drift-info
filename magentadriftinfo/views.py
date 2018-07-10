@@ -33,13 +33,13 @@ class DetailView(TemplateResponseMixin, View):
         qs = Event.objects.all()
         filter = {}
         if 'server' in self.kwargs:
-            qs = qs.filter(servers__name = self.kwargs['server'])
+            qs = qs.filter(servers__name=self.kwargs['server'])
         if 'system' in self.kwargs:
-            qs = qs.filter(systems__name = self.kwargs['system'])
+            qs = qs.filter(systems__name=self.kwargs['system'])
         if 'customer' in self.kwargs:
             qs = qs.filter(
-                Q(servers__customers__name = self.kwargs['customer']) |
-                Q(systems__customers__name = self.kwargs['customer'])
+                Q(servers__customers__name=self.kwargs['customer']) |
+                Q(systems__customers__name=self.kwargs['customer'])
             )
         qs = qs.distinct().order_by(self.ordering)
 

@@ -1,6 +1,87 @@
 {% load i18n %}
 
 {% if qs %}
+    <div class="accordion" id="accordion_{{ id }}">
+        {% for object in qs %}
+            <div class="card">
+                <div class="card-header" id="heading{{ forloop.counter }}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{ id }}_{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse_{{ id }}_{{ forloop.counter }}">
+                            {% if object.systems.all %}
+                                {{ object.startTime|date:'d/m-Y \k\l. H:i' }}
+                                {% for system in object.systems.all %}
+                                    {{ system.name }}{% if not forloop.last %},{% else %}:{% endif %}
+                                {% endfor %}
+                                {{ object.title }}
+                            {% else %}
+                                {{ object.startTime|date:'d/m-Y \k\l. H:i' }}:
+                                {{ object.title }}
+                            {% endif %}
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapse_{{ id }}_{{ forloop.counter }}" class="collapse hide" aria-labelledby="heading_{{ id }}_{{ forloop.counter }}">
+                    <div class="card-body">
+                        <table class="list" style="display: block;" id="4079" border="0"><tbody>
+                        <tr>
+                            <td style="">Starttidspunkt:</td>
+                            <td style="">{{ object.startTime|date:'d/m-Y \k\l. H:i' }}</td>
+                        </tr>
+                        <tr>
+                            <td style="">Sluttidspunkt:</td>
+                            <td style="">{{ object.endTime|date:'d/m-Y \k\l. H:i' }}</td>
+                        </tr>
+                        <tr>
+                            <td style="">{% blocktrans count c=object.systems.count %}System:{% plural %}Systemer:{% endblocktrans %}</td>
+                            <td style="">
+                                {% if object.systems.all %}
+                                    {% for system in object.systems.all %}
+                                        {{ system.name }}{% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    Ikke specificeret
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="">{% blocktrans count c=object.servers.count %}Server:{% plural %}Servere:{% endblocktrans %}</td>
+                            <td style="">
+                                {% if object.servers.all %}
+                                    {% for server in object.servers.all %}
+                                        {{ server.name }}{% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    Ikke specificeret
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="">Overskrift:</td>
+                            <td style="">{{ object.title }}</td>
+                        </tr>
+                        <tr>
+                            <td style="">Beskrivelse:</td>
+                            <td style="">{{ object.description }}</td>
+                        </tr>
+                        <tr>
+                            <td style="">Niveau:</td>
+                            <td style="">{{ object.get_level_display }}</td>
+                        </tr>
+                        <tr>
+                            <td style="">Sidst opdateret:</td>
+                            <td style="">{{ object.endTime|date:'d/m-Y \k\l. H:i' }}</td>
+                        </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+<!--
     <ul>
         {% for object in qs %}
             <li>
@@ -59,6 +140,8 @@
             </li>
         {% endfor %}
     </ul>
+-->
+
 {% else %}
     <p>Ingen driftforstyrrelser at vise.</p>
 {% endif %}
