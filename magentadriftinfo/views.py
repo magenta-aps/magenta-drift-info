@@ -6,6 +6,21 @@ from django.views import generic
 from .models import Event, Customer, System, Server
 
 
+class IndexView(generic.ListView):
+    context_object_name = 'customers'
+    template_name = 'magentadriftinfo/index.html'
+    queryset = Customer.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['systems'] = System.objects.all()
+        context['servers'] = Server.objects.all()
+        print(context['systems'])
+        for system in context['systems']:
+            print(system.customers.all())
+        return context
+
+
 class CustomerIndexView(generic.ListView):
     model = Customer
     template_name = 'magentadriftinfo/customer_index.html'
@@ -22,6 +37,8 @@ class ServerIndexView(generic.ListView):
     model = Server
     template_name = 'magentadriftinfo/server_index.html'
     context_object_name = 'servers'
+    for server in Server.objects.all():
+        print(server)
 
 
 class DetailView(TemplateResponseMixin, View):

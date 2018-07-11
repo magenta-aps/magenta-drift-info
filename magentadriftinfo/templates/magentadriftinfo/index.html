@@ -1,0 +1,15 @@
+{% extends 'magentadriftinfo/base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    <div class=container>
+        <div class="jumbotron">
+            {% include 'magentadriftinfo/customer_index_body.html' %}
+            <hr class="my-4">
+            {% include 'magentadriftinfo/system_index_body.html' %}
+            <hr class="my-4">
+            {% include 'magentadriftinfo/server_index_body.html' %}
+        </div>
+    </div>
+{% endblock %}
