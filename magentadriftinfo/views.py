@@ -16,8 +16,6 @@ class IndexView(generic.ListView):
         context['systems'] = System.objects.all()
         context['servers'] = Server.objects.all()
         print(context['systems'])
-        for system in context['systems']:
-            print(system.customers.all())
         return context
 
 
