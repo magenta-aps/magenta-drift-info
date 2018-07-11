@@ -1,33 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer index</title>
-</head>
-{% if customers %}
-    <ul>
-        {% for customer in customers %}
-            <li><a href="{% url 'magentadriftinfo:customer' customer.name %}">{{ customer.name }}</a></li>
-            <p>
-                Servers:
-                {% for server in customer.server_set.all %}
-                    <a href="{% url 'magentadriftinfo:server' server.name %}">
-                        {{ server.name }}</a>{% if not forloop.last %},{% endif %}
-                {% endfor %}
-            </p>
-            <p>
-                Systems:
-                {% for system in customer.system_set.all %}
-                    <a href="{% url 'magentadriftinfo:system' system.name %}">
-                        {{ system.name }}</a>{% if not forloop.last %},{% endif %}
-                {% endfor %}
-            </p>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No customers registered.</p>
-{% endif %}
-<body>
+{% extends 'magentadriftinfo/base.html' %}
 
-</body>
-</html>
+{% block content %}
+    <div class=container>
+        <div class="jumbotron">
+            <h3>Customers</h3>
+            <hr class="my-4">
+            {% if customers %}
+                <div class="accordion" id="accordion_system">
+                    {% for customer in customers %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{ forloop.counter }}">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#collapse{{ forloop.counter }}"
+                                            aria-expanded="true"
+                                            aria-controls="collapse{{ forloop.counter }}">
+                                        {{ customer }}
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapse{{ forloop.counter }}"
+                                 class="collapse show"
+                                 aria-labelledby="heading{{ forloop.counter }}">
+                                <div class="card-body">
+                                    <table class="list" style="display: block;" id="4079" border="0">
+                                        <tbody>
+                                        <tr>
+                                            <td style="">Servers:</td>
+                                            <td style="">
+                                                {% for server in customer.server_set.all %}
+                                                    <a href="{% url 'magentadriftinfo:server' server %}">
+                                                        {{ server }}</a>{% if not forloop.last %},{% endif %}
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="">Systems:</td>
+                                            <td style="">
+                                                {% for system in customer.system_set.all %}
+                                                    <a href="{% url 'magentadriftinfo:system' system %}">
+                                                        {{ system }}</a>{% if not forloop.last %},{% endif %}
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="">Events:</td>
+                                            <td style="">
+                                                <a href="{% url 'magentadriftinfo:customer' customer %}">Overview</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No systems registered.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

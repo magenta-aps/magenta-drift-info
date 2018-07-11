@@ -16,7 +16,9 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'magentadriftinfo/style.css' %}"/>
 
-    <title>Driftoversigt</title>
+    <title>
+        {% block title %}{% endblock %}
+    </title>
 </head>
 <body>
 

@@ -1,13 +1,67 @@
 {% extends 'magentadriftinfo/base.html' %}
 
 {% block content %}
-{% if systems %}
-    <ul>
-        {% for system in systems %}
-            <li><a href="{% url 'magentadriftinfo:system' system.name %}">{{ system.name }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No systems registered.</p>
-{% endif %}
+<div class=container>
+    <div class="jumbotron">
+        <h3>Systems</h3>
+        <hr class="my-4">
+        {% if systems %}
+            <div class="accordion" id="accordion_system">
+                {% for system in systems %}
+                    <div class="card">
+                        <div class="card-header" id="heading{{ forloop.counter }}">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link"
+                                        type="button"
+                                        data-toggle="collapse"
+                                        data-target="#collapse{{ forloop.counter }}"
+                                        aria-expanded="true"
+                                        aria-controls="collapse{{ forloop.counter }}">
+                                    {{ system }}
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapse{{ forloop.counter }}"
+                             class="collapse show"
+                             aria-labelledby="heading{{ forloop.counter }}">
+                            <div class="card-body">
+                                <table class="list" style="display: block;" id="4079" border="0">
+                                    <tbody>
+                                    <tr>
+                                        <td style="">Servers:</td>
+                                        <td style="">
+                                            {% for server in system.server_set.all %}
+                                                <a href="{% url 'magentadriftinfo:server' server %}">
+                                                    {{ server }}</a>{% if not forloop.last %},{% endif %}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="">Customers:</td>
+                                        <td style="">
+                                            {% for customer in system.customers.all %}
+                                                <a href="{% url 'magentadriftinfo:customer' customer %}">
+                                                    {{ customer }}</a>{% if not forloop.last %},{% endif %}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="">Events:</td>
+                                        <td style="">
+                                            <a href="{% url 'magentadriftinfo:system' system %}">Overview</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No systems registered.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
