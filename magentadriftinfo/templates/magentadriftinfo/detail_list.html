@@ -12,10 +12,10 @@
                                 {% for system in object.systems.all %}
                                     {{ system.name }}{% if not forloop.last %},{% else %}:{% endif %}
                                 {% endfor %}
-                                {{ object.title }}
+                                {{ object.name }}
                             {% else %}
                                 {{ object.startTime|date:'d/m-Y \k\l. H:i' }}:
-                                {{ object.title }}
+                                {{ object.name }}
                             {% endif %}
                         </button>
                     </h5>
@@ -58,7 +58,7 @@
                         </tr>
                         <tr>
                             <td style="">Overskrift:</td>
-                            <td style="">{{ object.title }}</td>
+                            <td style="">{{ object.name }}</td>
                         </tr>
                         <tr>
                             <td style="">Beskrivelse:</td>

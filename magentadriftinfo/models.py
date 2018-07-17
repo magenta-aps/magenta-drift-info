@@ -61,8 +61,8 @@ class Server(HistoricalObject):
     customers = models.ManyToManyField(Customer, blank=True)
 
 
-class Event(models.Model):
-    title = models.CharField(max_length=200)
+class Event(HistoricalObject):
+    history = HistoricalRecords()
     description = models.TextField(blank=True)
     NONE = 0
     LOW = 1
@@ -83,20 +83,6 @@ class Event(models.Model):
     solution = models.TextField(blank=True)
     servers = models.ManyToManyField(Server, blank=True)
     systems = models.ManyToManyField(System, blank=True)
-    history = HistoricalRecords()
-    # createdTime
-    # createdBy
-    # updatedBy
-
-    @property
-    def updatedTime(self):
-        try:
-            return self.history.latest().history_date
-        except ObjectDoesNotExist:
-            return None
-
-    def __str__(self):
-        return self.title
 
     def active(self):
         now = timezone.now()
