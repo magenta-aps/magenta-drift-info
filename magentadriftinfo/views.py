@@ -37,8 +37,6 @@ class ServerIndexView(generic.ListView):
     model = Server
     template_name = 'magentadriftinfo/server_index.html'
     context_object_name = 'servers'
-    for server in Server.objects.all():
-        print(server)
 
 
 class DetailView(TemplateResponseMixin, View):

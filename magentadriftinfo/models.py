@@ -64,7 +64,7 @@ class Event(models.Model):
     level = models.IntegerField(choices=LEVEL, null=True, default=2)
     startTime = models.DateTimeField('start time')
     endTime = models.DateTimeField('end time', blank=True, null=True)
-    planned = models.BooleanField()
+    planned = models.NullBooleanField(blank=True, null=True)
     solution = models.TextField(blank=True)
     servers = models.ManyToManyField(Server, blank=True)
     systems = models.ManyToManyField(System, blank=True)
