@@ -5,17 +5,47 @@ from simple_history.models import HistoricalRecords
 from django.core.exceptions import ObjectDoesNotExist
 
 
-class Customer(models.Model):
+class HistoricalObject(models.Model):
     name = models.CharField(max_length=200)
-    redmineLink = models.CharField(max_length=400, blank=True)
-    history = HistoricalRecords()
-    # createdTime
-    # createdBy
-    # updatedTime
-    # updatedBy
+
+    class Meta:
+        abstract = True
+
+    @property
+    def updatedTime(self):
+        try:
+            return self.history.latest().history_date
+        except ObjectDoesNotExist:
+            return None
+
+    @property
+    def createdTime(self):
+        try:
+            return self.history.earliest().history_date
+        except ObjectDoesNotExist:
+            return None
+
+    @property
+    def updatedBy(self):
+        try:
+            return self.history.latest().history_user
+        except ObjectDoesNotExist:
+            return None
+
+    @property
+    def createdBy(self):
+        try:
+            return self.history.earliest().history_user
+        except ObjectDoesNotExist:
+            return None
 
     def __str__(self):
         return self.name
+
+
+class Customer(HistoricalObject):
+    history = HistoricalRecords()
+    redmineLink = models.CharField(max_length=400, blank=True)
 
 
 class System(models.Model):
