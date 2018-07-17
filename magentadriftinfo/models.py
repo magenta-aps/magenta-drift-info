@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from simple_history.models import HistoricalRecords
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Customer(models.Model):
@@ -71,8 +72,14 @@ class Event(models.Model):
     history = HistoricalRecords()
     # createdTime
     # createdBy
-    # updatedTime
     # updatedBy
+
+    @property
+    def updatedTime(self):
+        try:
+            return self.history.latest().history_date
+        except ObjectDoesNotExist:
+            return None
 
     def __str__(self):
         return self.title
