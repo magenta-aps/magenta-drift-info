@@ -48,33 +48,17 @@ class Customer(HistoricalObject):
     redmineLink = models.CharField(max_length=400, blank=True)
 
 
-class System(models.Model):
-    name = models.CharField(max_length=200)
+class System(HistoricalObject):
+    history = HistoricalRecords()
     description = models.TextField(blank=True)
     customers = models.ManyToManyField(Customer, blank=True)
+
+
+class Server(HistoricalObject):
     history = HistoricalRecords()
-    # createdTime
-    # createdBy
-    # updatedTime
-    # updatedBy
-
-    def __str__(self):
-        return self.name
-
-
-class Server(models.Model):
-    name = models.CharField(max_length=200)
     link = models.CharField(max_length=400, blank=True)
     systems = models.ManyToManyField(System, blank=True)
     customers = models.ManyToManyField(Customer, blank=True)
-    history = HistoricalRecords()
-    # createdTime
-    # createdBy
-    # updatedTime
-    # updatedBy
-
-    def __str__(self):
-        return self.name
 
 
 class Event(models.Model):
