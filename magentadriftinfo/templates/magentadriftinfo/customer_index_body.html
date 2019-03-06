@@ -4,22 +4,22 @@
     <div class="accordion" id="accordion_system">
         {% for customer in customers %}
             <div class="card">
-                <div class="card-header" id="heading{{ forloop.counter }}">
+                <div class="card-header" id="customer{{ forloop.counter }}">
                     <h5 class="mb-0">
                         <button class="btn btn-link"
                                 type="button"
                                 data-toggle="collapse"
-                                data-target="#collapse{{ forloop.counter }}"
+                                data-target="#customer-collapse{{ forloop.counter }}"
                                 aria-expanded="true"
-                                aria-controls="collapse{{ forloop.counter }}">
+                                aria-controls="customer-collapse{{ forloop.counter }}">
                             {{ customer }}
                         </button>
                     </h5>
                 </div>
 
-                <div id="collapse{{ forloop.counter }}"
+                <div id="customer-collapse{{ forloop.counter }}"
                      class="collapse show"
-                     aria-labelledby="heading{{ forloop.counter }}">
+                     aria-labelledby="customer{{ forloop.counter }}">
                     <div class="card-body">
                         <table class="list" style="display: block;" id="4079" border="0">
                             <tbody>

@@ -69,8 +69,16 @@
                             <td style="">{{ object.get_level_display }}</td>
                         </tr>
                         <tr>
+                            <td style="">Planlagt:</td>
+                            <td style="">{% if object.planned %}Ja{% else %}Nej{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td style="">Oprettet:</td>
+                            <td style="">{{ object.createdTime|date:'d/m-Y \k\l. H:i' }}</td>
+                        </tr>
+                        <tr>
                             <td style="">Sidst opdateret:</td>
-                            <td style="">{{ object.endTime|date:'d/m-Y \k\l. H:i' }}</td>
+                            <td style="">{{ object.updatedTime|date:'d/m-Y \k\l. H:i' }}</td>
                         </tr>
                         </tbody>
                         </table>
